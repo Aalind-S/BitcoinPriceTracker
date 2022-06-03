@@ -21,9 +21,23 @@ def info():
     api_link = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD%2CEUR%2CINR%2CCAD"
     r = requests.get(api_link)
     dic = r.json()
+
     usd_value = float(dic["USD"])
     usd_formatted = "${:,.3f}".format(usd_value)
     usd["text"] = usd_formatted
+
+    euros_value = float(dic["EUR"])
+    euros_formatted = "EUROS : €{:,.3f}".format(euros_value)
+    euros["text"] = euros_formatted
+
+    cad_value = float(dic["CAD"])
+    cad_formatted = "CAD : ${:,.3f}".format(cad_value)
+    cad["text"] = cad_formatted
+
+    inr_value = float(dic["INR"])
+    inr_formatted = "INR : ₹{:,.3f}".format(inr_value)
+    inr["text"] = inr_formatted
+    frame_body.after(1000, info)
 
 
 frame_head = Frame(window, width=320, height=50, bg=col1)
@@ -39,9 +53,11 @@ image_1 = ImageTk.PhotoImage(image_1)
 icon_1 = Label(frame_head, image=image_1, bg=col1)
 icon_1.place(x=10, y=10)
 
+
 name = Label(frame_head, text="Bitcoin Price Tracker", bg=col1, padx=0,
              fg=col3, anchor="center", height=1, width=18, font=('Poppins 15'))
 name.place(x=50, y=10)
+
 
 usd = Label(frame_body, text="$0000", height=1, font=(
     'Arial 30 bold'), width=14, bg=col2, fg=col1, anchor="center")
@@ -50,12 +66,17 @@ usd.place(x=0, y=28)
 euros = Label(frame_body, text="$0000", height=1, font=(
     'Arial 15 bold'), bg=col2, fg=col1, anchor="center")
 euros.place(x=10, y=130)
+
+
 cad = Label(frame_body, text="$0000", height=1, font=(
     'Arial 15 bold'), bg=col2, fg=col1, anchor="center")
 cad.place(x=10, y=170)
+
+
 inr = Label(frame_body, text="$0000", height=1, font=(
     'Arial 15 bold'), bg=col2, fg=col1, anchor="center")
 inr.place(x=10, y=210)
+
 
 info()
 
